@@ -112,10 +112,4 @@ class Product
         }
         return $products;
     }
-    
-    public static function deleteProduct($id) {
-        
-        
-    }
-
 }

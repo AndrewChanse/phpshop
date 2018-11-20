@@ -25,14 +25,14 @@
                         <p>Заказ оформлен. Мы Вам перезвоним.</p>
                         <?php else: ?>
  
-                    <p>Выбрано товаров: ???, на сумму: ??? USD.</p><br/>
+                    <p>Выбрано товаров: <?=$quantity; ?>, на сумму: <?=$totalPrice; ?> USD.</p><br/>
                         <div class="col-sm-4">
                             <p>Для оформления заказа заполните форму. Наш менеджер свяжется с Вами.</p>
                             <div class="login-form">
                                 <form action="#" method="post">
 
                                     <p>Ваше имя:</p>
-                                    <input type="text" name="userName" placeholder="" value=""/>
+                                    <input type="text" name="userName" placeholder="" value="<?=$userName; ?>"/>
 
                                     <p>Номер телефона:</p>
                                     <input type="text" name="userPhone" placeholder="" value=""/>

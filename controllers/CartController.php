@@ -42,14 +42,50 @@ class CartController
         if($productsInCart == false) {
             header("Location: /");
         }
-        $productsIDs = array_keys($productsInCart);
-        //echo '<pre>';        print_r($productsIDs); die();
-                
+        $idsArray = array_keys($productsInCart);
+        //echo '<pre>';        print_r($idsArray); die();
+        $products = Product::getProductsByIds($idsArray);
+        //echo '<pre>';        print_r($products); die();
+        $totalPrice = Cart::getTotalPrice($products, $productsInCart);
+        $quantity = Cart::countCartItems();
+        
         $userName = false;
         $userPhone = false;
         $userComment = false;
         $result = false;
         
+        if(!User::isGuest()) {
+            $userID = User::checkLogged();
+            $user = User::getUserById($userID);
+            $userName = $user['name'];
+        } else {
+            $userID = false;
+        }
+        
+        if(isset($_POST['submit'])) {
+            $userName = $_POST['userName'];
+            $userPhone = $_POST['userPhone'];
+            $userComment = $_POST['userComment'];
+            $errors = false;
+            
+            if(empty($_POST['userName']) || !isset($_POST['userName'])) {
+                $errors[] = 'Enter User Name';
+            }
+            
+            if($errors == false) {
+                $result = Order::saveOrder($userName, $userPhone, $userComment, $userID, $productsInCart);
+                
+                if($result) {
+                    $adminEmail = 'andyua@inbox.ru';
+                    $subject = 'Subject';
+                    $message = 'Smessage';
+                    mail($message, $subject, $adminEmail);
+                    
+                    Cart::clear();
+                }
+            }
+        }
+                
         require_once ROOT.'/views/cart/checkout.php';
         return true;
     }
