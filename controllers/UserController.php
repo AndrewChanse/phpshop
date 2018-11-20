@@ -26,7 +26,6 @@ class UserController
             
             if($errors == false) {
                 $result = User::register($name, $email, $password);
-                header("Location: /cabinet");
             }
         }
         require_once ROOT.'/views/user/register.php';
@@ -34,9 +33,32 @@ class UserController
     }
     
     public function actionLogin() {
-        
-        
+        if(isset($_POST['submit'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $errors = false;
+            
+            if(!User::checkEmail($email)) {
+                $errors[] = 'Wrong email';
+            }
+            if(!User::checkPass($password)) {
+                $errors[] = 'Wrong password';
+            }
+            
+            $userID = User::checkLoginData($email, $password);
+            if($userID == false) {
+                $errors[] = 'Wrong Login Data!';
+            } else {
+                User::auth($userID);
+                header("Location: /cabinet");
+            }
+        }
         require_once ROOT.'/views/user/login.php';
         return true;
+    }
+    
+    public function actionLogout() {
+        unset($_SESSION['user']);
+        header("Location: /");
     }
 }
