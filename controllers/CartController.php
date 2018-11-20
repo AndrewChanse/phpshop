@@ -36,7 +36,19 @@ class CartController
     }
     
     public function actionCheckout() {
+        $categoryList = Category::getCategoryList();
+        $productsInCart = Cart::getProductsInCart();
         
+        if($productsInCart == false) {
+            header("Location: /");
+        }
+        $productsIDs = array_keys($productsInCart);
+        //echo '<pre>';        print_r($productsIDs); die();
+                
+        $userName = false;
+        $userPhone = false;
+        $userComment = false;
+        $result = false;
         
         require_once ROOT.'/views/cart/checkout.php';
         return true;

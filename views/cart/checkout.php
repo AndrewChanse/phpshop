@@ -7,15 +7,13 @@
                 <div class="left-sidebar">
                     <h2>Каталог</h2>
                     <div class="panel-group category-products">
-                        <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#">
-                                            
-                                        </a>
-                                    </h4>
+                        <?php foreach ($categoryList as $category): ?>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="/category/<?=$category['id']; ?>"><?=$category['name']; ?></a></h4>
+                                    </div>
                                 </div>
-                            </div>
+                              <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -23,8 +21,9 @@
             <div class="col-sm-9 padding-right">
                 <div class="features_items">
                     <h2 class="title text-center">Корзина</h2>
- 
+                        <?php if($result): ?>
                         <p>Заказ оформлен. Мы Вам перезвоним.</p>
+                        <?php else: ?>
  
                     <p>Выбрано товаров: ???, на сумму: ??? USD.</p><br/>
                         <div class="col-sm-4">
@@ -47,6 +46,7 @@
                                 </form>
                             </div>
                         </div>
+                        <?php endif; ?>
                 </div>
             </div>
         </div>
