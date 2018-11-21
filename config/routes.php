@@ -22,6 +22,11 @@ return [
     'cart/checkout' => 'cart/checkout',
     'cart' => 'cart/index',
     
+    'admin/product' => 'adminProduct/index',
+    'admin/category' => 'adminCategory/index',
+    'admin/order' => 'adminOrder/index',
+    'admin' => 'admin/index',
+    
     '' => 'site/index'
     
 ];

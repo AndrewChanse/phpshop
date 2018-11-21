@@ -112,4 +112,26 @@ class Product
         }
         return $products;
     }
+    
+    public static function getProductsAdmin($page, $limit) {
+        $page = intval($page);
+        $offset = ($page - 1) * $limit;
+        $dbPDO = DbConnector::getConnect();
+        $sql = "SELECT * FROM product ORDER BY id ASC LIMIT $limit OFFSET $offset";
+        $result = $dbPDO->prepare($sql);
+        $result->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $result->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        $products = [];
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $products[$i]['id'] = $row['id'];
+            $products[$i]['code'] = $row['code'];
+            $products[$i]['name'] = $row['name'];
+            $products[$i]['price'] = $row['price'];
+            $i++;
+        }
+        return $products;
+    }
 }
