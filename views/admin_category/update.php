@@ -15,7 +15,7 @@
             </div>
 
 
-            <h4>Редактировать категорию ""</h4>
+            <h4>Редактировать категорию "<?=$category['name']; ?>"</h4>
 
             <br/>
 
@@ -24,15 +24,15 @@
                     <form action="#" method="post">
 
                         <p>Название</p>
-                        <input type="text" name="name" placeholder="" value="">
+                        <input type="text" name="name" placeholder="" value="<?=$name; ?>">
 
                         <p>Порядковый номер</p>
-                        <input type="text" name="sort_order" placeholder="" value="">
+                        <input type="text" name="sort_order" placeholder="" value="<?=$sort_order; ?>">
                         
                         <p>Статус</p>
                         <select name="status">
-                            <option value="1">Отображается</option>
-                            <option value="0">Скрыта</option>
+                            <option value="1" <?php if($status == 1) echo 'selected'; ?>>Отображается</option>
+                            <option value="0" <?php if($status == 0) echo 'selected'; ?>>Скрыта</option>
                         </select>
 
                         <br><br>
