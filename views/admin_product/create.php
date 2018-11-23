@@ -10,7 +10,7 @@
                 <ol class="breadcrumb">
                     <li><a href="/admin">Админпанель</a></li>
                     <li><a href="/admin/product">Управление товарами</a></li>
-                    <li class="active">Редактировать товар</li>
+                    <li class="active">Добавить товар</li>
                 </ol>
             </div>
 
@@ -34,7 +34,9 @@
 
                         <p>Категория</p>
                         <select name="category_id">
-                            <option value="">Категория</option>
+                            <?php foreach ($categorySelect as $category): ?>
+                            <option value="<?=$category['id']; ?>"><?=$category['name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
 
                         <br/><br/>

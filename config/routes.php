@@ -22,7 +22,12 @@ return [
     'cart/checkout' => 'cart/checkout',
     'cart' => 'cart/index',
     
+    'admin/product/create' => 'adminProduct/create',
+    'admin/product/update/([0-9]+)' => 'adminProduct/update/$1',
+    'admin/product/delete/([0-9]+)' => 'adminProduct/delete/$1',
+    'admin/product/page-([0-9]+)' => 'adminProduct/index/$1',
     'admin/product' => 'adminProduct/index',
+    
     'admin/category' => 'adminCategory/index',
     'admin/order' => 'adminOrder/index',
     'admin' => 'admin/index',

@@ -31,15 +31,16 @@
                 <?php foreach ($products as $product): ?>
                 <tr>
                     <td><?=$product['id']; ?></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a href="/admin/product/update/" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                    <td><a href="/admin/product/delete/" title="Удалить"><i class="fa fa-times"></i></a></td>
+                    <td><?=$product['code']; ?></td>
+                    <td><a href="/product/<?=$product['id']; ?>"><?=$product['name']; ?></a></td>
+                    <td><?=$product['price']; ?></td>
+                    <td><a href="/admin/product/update/<?=$product['id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
+                    <td><a href="/admin/product/delete/<?=$product['id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                 </tr>
                 <?php endforeach; ?>
             </table>
         </div>
+        <div class="text-center"><?=$pagination->get($totalOnPage, $page, $limit, 'page-'); ?></div>
     </div>
 </section>
 

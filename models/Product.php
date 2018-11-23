@@ -5,6 +5,7 @@ class Product
     const SHOW_BY_DEFAULT_INDEX = 6;
     const SHOW_BY_DEFAULT_CATALOG = 9;
     const SHOW_BY_DEFAULT_CATEGORY = 3;
+    const SHOW_BY_DEFAULT_ADMIN = 12;
 
         public static function getLatestProducts() {
         $limit = self::SHOW_BY_DEFAULT_INDEX;
@@ -48,6 +49,13 @@ class Product
     public static function getTotalProductsOnPage() {
         $dbPDO = DbConnector::getConnect();
         $result = $dbPDO->query("SELECT COUNT(id) as count FROM product WHERE status=1");
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        return $result->fetchColumn();
+    }
+    
+    public static function getTotalProductsAdmin() {
+        $dbPDO = DbConnector::getConnect();
+        $result = $dbPDO->query("SELECT COUNT(id) as count FROM product");
         $result->setFetchMode(PDO::FETCH_ASSOC);
         return $result->fetchColumn();
     }
@@ -113,7 +121,7 @@ class Product
         return $products;
     }
     
-    public static function getProductsAdmin($page, $limit) {
+    public static function getProductsAdmin($page, $limit=self::SHOW_BY_DEFAULT_ADMIN) {
         $page = intval($page);
         $offset = ($page - 1) * $limit;
         $dbPDO = DbConnector::getConnect();
@@ -133,5 +141,85 @@ class Product
             $i++;
         }
         return $products;
+    }
+    
+    public static function getProductByIdAdmin($id) {
+        $dbPDO = DbConnector::getConnect();
+        $sql = 'SELECT * FROM product WHERE id= :id';
+        $result = $dbPDO->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
+        return $result->fetch();
+    }
+    
+    public static function createProduct($options) {
+        $dbPDO = DbConnector::getConnect();
+        $sql = 'INSERT INTO product '
+                . '(name, code, price, category_id, brand, description, '
+                . 'availability, is_new, is_recommended, status) '
+                . 'VALUES (:name, :code, :price, :category_id, :brand, '
+                . ':description, :availability, :is_new, :is_recommended, :status)';
+        $result = $dbPDO->prepare($sql);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':code', $options['code'], PDO::PARAM_INT);
+        $result->bindParam(':price', $options['price'], PDO::PARAM_INT);
+        $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
+        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
+        $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
+        $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
+        $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
+        $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
+        $result->execute();
+        return $dbPDO->lastInsertId();
+    }
+    
+    public static function updateProduct($id, $options) {
+        $dbPDO = DbConnector::getConnect();
+        $sql = 'UPDATE product '
+                . 'SET '
+                . 'name= :name, '
+                . 'code= :code, '
+                . 'price= :price, '
+                . 'category_id= :category_id, '
+                . 'brand= :brand, '
+                . 'description= :description, '
+                . 'availability= :availability, '
+                . 'is_new= :is_new, '
+                . 'is_recommended= :is_recommended, '
+                . 'status= :status '
+                . 'WHERE id= :id';
+        $result = $dbPDO->prepare($sql);
+        $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
+        $result->bindParam(':code', $options['code'], PDO::PARAM_INT);
+        $result->bindParam(':price', $options['price'], PDO::PARAM_INT);
+        $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
+        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
+        $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
+        $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
+        $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
+        $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+    }
+    
+    public static function deleteProduct($id) {
+        $dbPDO = DbConnector::getConnect();
+        $sql = 'DELETE FROM product WHERE id= :id';
+        $result = $dbPDO->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+    }
+
+    public static function getImage($id) {
+        $noImage = 'no-image.jpg';
+        $path = '/upload/images/products/';
+        $pathToImage = $path.$id.'.jpg';
+        if(file_exists(ROOT.$pathToImage)) {
+            return $pathToImage;
+        }
+        return $path.$noImage;
     }
 }

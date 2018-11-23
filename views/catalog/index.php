@@ -28,7 +28,7 @@
                                     <div class="single-products">
                                         <div class="productinfo text-center">
                                             <a href="/product/<?=$product['id']; ?>">
-                                                <img src="/template/images/shop/no-image.jpg" alt="" />
+                                                <img src="<?=Product::getImage($product['id']); ?>" alt="" />
                                             </a>
                                             <h2>$ <?=$product['price']; ?></h2>
                                             <p><?=$product['name']; ?></p>
