@@ -29,16 +29,18 @@
                     <th>Редактирование</th>
                     <th>Удалить заказ</th>
                 </tr>
+                <?php foreach ($orderList as $order): ?>
                 <tr>
-                    <td><a href="/admin/order/view/"></a></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a href="/admin/order/view/" title="Смотреть"><i class="fa fa-eye"></i></a></td>
-                    <td><a href="/admin/order/update/" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                    <td><a href="/admin/order/delete/" title="Удалить"><i class="fa fa-times"></i></a></td>
+                    <td><a href="/admin/order/view/<?=$order['id']; ?>"><?=$order['id']; ?></a></td>
+                    <td><?=$order['user_name']; ?></td>
+                    <td><?=$order['user_phone']; ?></td>
+                    <td><?=$order['date']; ?></td>
+                    <td><?=Order::getStatusText($order['status']); ?></td>
+                    <td><a href="/admin/order/view/<?=$order['id']; ?>" title="Смотреть"><i class="fa fa-eye"></i></a></td>
+                    <td><a href="/admin/order/update/<?=$order['id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
+                    <td><a href="/admin/order/delete/<?=$order['id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                 </tr>
+                <?php endforeach; ?>
             </table>
 
         </div>

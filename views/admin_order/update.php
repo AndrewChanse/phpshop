@@ -15,7 +15,7 @@
             </div>
 
 
-            <h4>Редактировать заказ #</h4>
+            <h4>Редактировать заказ № <?=$id; ?></h4>
 
             <br/>
 
@@ -24,23 +24,23 @@
                     <form action="#" method="post">
 
                         <p>Имя клиента</p>
-                        <input type="text" name="userName" placeholder="" value="">
+                        <input type="text" name="userName" placeholder="" value="<?=$userName; ?>">
 
                         <p>Телефон клиента</p>
-                        <input type="text" name="userPhone" placeholder="" value="">
+                        <input type="text" name="userPhone" placeholder="" value="<?=$userPhone; ?>">
 
                         <p>Комментарий клиента</p>
-                        <input type="text" name="userComment" placeholder="" value="">
+                        <input type="text" name="userComment" placeholder="" value="<?=$userComment; ?>">
 
                         <p>Дата оформления заказа</p>
-                        <input type="text" name="date" placeholder="" value="">
+                        <input type="text" name="date" placeholder="" value="<?=$date; ?>">
 
                         <p>Статус</p>
                         <select name="status">
-                            <option value="1" selected>Новый заказ</option>
-                            <option value="2">В обработке</option>
-                            <option value="3">Доставляется</option>
-                            <option value="4">Закрыт</option>
+                            <option value="1" <?php if($status == 1) echo 'selected'; ?>>Новый заказ</option>
+                            <option value="2" <?php if($status == 2) echo 'selected'; ?>>В обработке</option>
+                            <option value="3" <?php if($status == 3) echo 'selected'; ?>>Доставляется</option>
+                            <option value="4" <?php if($status == 4) echo 'selected'; ?>>Закрыт</option>
                             
                         </select>
                         <br>

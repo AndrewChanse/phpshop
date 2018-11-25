@@ -14,38 +14,40 @@
                 </ol>
             </div>
 
-            <h4>Просмотр заказа #</h4>
+            <h4>Просмотр заказа № <?=$id; ?></h4>
             <br/>
 
             <h5>Информация о заказе:</h5>
             <table class="table-admin-small table-bordered table-striped table">
                 <tr>
                     <td>Номер заказа</td>
-                    <td></td>
+                    <td><?=$id; ?></td>
                 </tr>
                 <tr>
                     <td>Имя клиента</td>
-                    <td></td>
+                    <td><?=$order['user_name']; ?></td>
                 </tr>
                 <tr>
                     <td>Телефон клиента</td>
-                    <td></td>
+                    <td><?=$order['user_phone']; ?></td>
                 </tr>
                 <tr>
                     <td>Комментарий клиента</td>
-                    <td></td>
+                    <td><?=$order['user_comment']; ?></td>
                 </tr>
+                <?php if($order['user_id'] != 0): ?>
                 <tr>
                     <td>ID клиента</td>
-                    <td></td>
+                    <td><?=$order['user_id']; ?></td>
                 </tr>
+                <?php endif; ?>
                 <tr>
                     <td><b>Статус заказа</b></td>
-                    <td></td>
+                    <td><?= Order::getStatusText($order['status']); ?></td>
                 </tr>
                 <tr>
                     <td><b>Дата заказа</b></td>
-                    <td></td>
+                    <td><?=$order['date']; ?></td>
                 </tr>
             </table>
             <br><br>
@@ -59,18 +61,18 @@
                     <th>Цена за единицу</th>
                     <th>Количество</th>
                 </tr>
+                <?php foreach ($products as $product): ?>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?=$product['id']; ?></td>
+                    <td><?=$product['code']; ?></td>
+                    <td><?=$product['name']; ?></td>
+                    <td><?=$product['price']; ?></td>
+                    <td><?=$productsArray[$product['id']]; ?></td>
                 </tr>
+                <?php endforeach; ?>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td><b>Общая стоимость:</b></td>
-                    <td><b>$</b></td>
+                    <td colspan="3"><b>Общая стоимость:</b></td>
+                    <td><b>$ <?=$totalPrice; ?></b></td>
                     <td></td>
                 </tr>
             </table>
