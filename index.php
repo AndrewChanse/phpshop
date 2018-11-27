@@ -9,11 +9,11 @@ session_start();
 
 // 2. Подключение файлов системы
 define('ROOT', dirname(__FILE__));
-require_once ROOT.'/components/Autoload.php';
-//require_once ROOT.'/components/Router.php';
+//require_once ROOT.'/components/Autoload.php';
+require_once ROOT.'/components/Router.php';
 
 // 3. Установка соединения с БД
-//require ROOT.'/components/DbConnector.php';
+require ROOT.'/components/DbConnector.php';
 
 // 4. Вызов Router
 $router = new Router;
