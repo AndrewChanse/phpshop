@@ -33,7 +33,7 @@
                                             </a>
                                             <h2>$ <?=$product['price']; ?></h2>
                                             <p><?=$product['name']; ?></p>
-                                            <a href="#" class="btn btn-default add-to-cart">
+                                            <a href="#" data-id="<?=$product['id']; ?>" class="btn btn-default add-to-cart">
                                                 <i class="fa fa-shopping-cart"></i>В корзину
                                             </a>
                                         </div>

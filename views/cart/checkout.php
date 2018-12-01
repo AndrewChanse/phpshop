@@ -7,15 +7,13 @@
                 <div class="left-sidebar">
                     <h2>Каталог</h2>
                     <div class="panel-group category-products">
-                        <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="#">
-                                            
-                                        </a>
-                                    </h4>
+                        <?php foreach ($categoryList as $category): ?>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><a href="/category/<?=$category['id']; ?>"><?=$category['name']; ?></a></h4>
+                                    </div>
                                 </div>
-                            </div>
+                                <?php endforeach; ?>
                     </div>
                 </div>
             </div>
@@ -23,23 +21,31 @@
             <div class="col-sm-9 padding-right">
                 <div class="features_items">
                     <h2 class="title text-center">Корзина</h2>
- 
+                        
+                        <?php if($result): ?>
                         <p>Заказ оформлен. Мы Вам перезвоним.</p>
- 
-                    <p>Выбрано товаров: ???, на сумму: ??? USD.</p><br/>
+                        <?php else: ?>
+                        <?php if(isset($errors) && is_array($errors)): ?>
+                        <ul>
+                            <?php foreach ($errors as $error): ?>
+                            <li><b><?=$error; ?></b></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php endif; ?>
+                    <p>Выбрано товаров: <?=$totalQuantity; ?>, на сумму: <?=$totalPrice; ?> USD.</p><br/>
                         <div class="col-sm-4">
                             <p>Для оформления заказа заполните форму. Наш менеджер свяжется с Вами.</p>
                             <div class="login-form">
                                 <form action="#" method="post">
 
                                     <p>Ваше имя:</p>
-                                    <input type="text" name="userName" placeholder="" value=""/>
+                                    <input type="text" name="userName" placeholder="" value="<?=$userName; ?>"/>
 
                                     <p>Номер телефона:</p>
-                                    <input type="text" name="userPhone" placeholder="" value=""/>
+                                    <input type="text" name="userPhone" placeholder="" value="<?=$userPhone; ?>"/>
 
                                     <p>Комментарий к заказу:</p>
-                                    <input type="text" name="userComment" placeholder="Сообщение" value=""/>
+                                    <input type="text" name="userComment" placeholder="Сообщение" value="<?=$userComment; ?>"/>
 
                                     <br/>
                                     <br/>
@@ -47,6 +53,7 @@
                                 </form>
                             </div>
                         </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

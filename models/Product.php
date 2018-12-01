@@ -94,4 +94,21 @@ class Product
         $row = $result->fetch();
         return $row['count'];
     }
+    
+    public static function getProductsByIds($productsIds) {
+        $idsString = implode(',', $productsIds);
+        $dbPDO = DbConnector::getConnect();
+        $result = $dbPDO->query("SELECT * FROM product WHERE status=1 AND id IN ($idsString)");
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $products = [];
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $products[$i]['id'] = $row['id'];
+            $products[$i]['code'] = $row['code'];
+            $products[$i]['name'] = $row['name'];
+            $products[$i]['price'] = $row['price'];
+            $i++;
+        }
+        return $products;
+    }
 }
